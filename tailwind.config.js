@@ -17,7 +17,7 @@ module.exports = {
         'custom-side-bar-width' : '450px',
       },
       height :{
-        'custom-table-container' : '910px',
+        'custom-table-container' : '905px',
 
       },
       fontFamily:{

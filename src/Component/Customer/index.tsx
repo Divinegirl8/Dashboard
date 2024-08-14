@@ -59,7 +59,7 @@ const DashBoard : React.FC = () => {
             </div>
 
 
-            <div className={"w-full h-custom-table-container bg-white rounded-3xl mt-6"}>
+            <div className={"w-full h-custom-table-container bg-white rounded-3xl mt-2"}>
                 <Table/>
             </div>
         </div>
