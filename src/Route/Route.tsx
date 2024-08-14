@@ -1,4 +1,4 @@
-import DashBoard from "../Component/DashBoard";
+import DashBoard from "../Component/Customer";
 
 export const Route = [
     {
