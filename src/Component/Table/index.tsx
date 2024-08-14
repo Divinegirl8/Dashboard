@@ -15,7 +15,7 @@ const Table: React.FC = () => {
                             <img src={Icons.search} alt={"search"} width={20}/>
                         </div>
                         <div>
-                            <input type={"text"}
+                            <input type={"search"}
                                    className={"w-80 h-11 rounded-custom-border-radius outline-none  text-custom-font-size2 pl-2"}/>
                         </div>
 
