@@ -1,5 +1,5 @@
 
-import Customer from "../Component/Customer";
+import Customer from "../components/Customer";
 
 export const Route = [
     {

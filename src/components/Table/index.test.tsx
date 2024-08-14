@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Table from "./index";
 
-describe('Table Component', () => {
+describe('Table component', () => {
 
     test('renders search input with correct attributes', () => {
         render(<Table/>);
