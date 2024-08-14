@@ -11,13 +11,19 @@ module.exports = {
         'custom-customer-position-color' : '#8F8F8F',
         'custom-color' : '#696969',
         'custom-customer-bg-color' : '#E1E9F4',
+        'search-container-color' : '#EEF2F7',
+        'custom-grey2' : '#F8F8F8',
+        'custom-color2' : '#CAC3D2'
 
       },
       width : {
         'custom-side-bar-width' : '450px',
+        'custom-width' : '95%',
+        'custom-width2' : '96%',
       },
       height :{
         'custom-table-container' : '905px',
+        'custom-table-container2' : '800px',
 
       },
       fontFamily:{
@@ -38,6 +44,9 @@ module.exports = {
       borderRadius :{
         'custom-border-radius' : '50px',
       },
+      border:{
+        'custom-size' : "1px",
+      }
 
     },
   },

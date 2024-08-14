@@ -5,7 +5,7 @@ import {Icons} from "../../icon/icons";
 import Table from "../Table";
 
 
-const DashBoard : React.FC = () => {
+const Customer: React.FC = () => {
     return (
         <div className={"flex flex-row justify-between font-custom-fonts-family"}>
             <div className={`flex flex-col w-custom-side-bar-width ml-4 mt-10 ${styles.sideBar}`}>
@@ -59,11 +59,11 @@ const DashBoard : React.FC = () => {
             </div>
 
 
-            <div className={"w-full h-custom-table-container bg-white rounded-3xl mt-2"}>
-                <Table/>
-            </div>
+
+                    <Table/>
+
         </div>
     )
 }
 
-export default DashBoard
+export default Customer

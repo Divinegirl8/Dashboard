@@ -5,6 +5,8 @@ import task from "../asset/icons/task.png"
 import dispute from "../asset/icons/dispute.png"
 import line from "../asset/icons/line.png"
 import setting from "../asset/icons/setting.png"
+import search from "../asset/icons/search.png"
+import filter from "../asset/icons/filter.png"
 export const Icons = {
     chat,
     contact,
@@ -12,5 +14,8 @@ export const Icons = {
     task,
     dispute,
     line,
-    setting
+    setting,
+    search,
+    filter
+
 }
