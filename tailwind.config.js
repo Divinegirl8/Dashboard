@@ -15,6 +15,8 @@ module.exports = {
         'custom-grey2' : '#F8F8F8',
         'custom-color2' : '#CAC3D2',
         'custom-color3' : '#E4ECF7',
+        'custom-color-4' :'#B4D2F8',
+        'custom-color-5' : '#D5E6FB',
 
       },
       width : {
