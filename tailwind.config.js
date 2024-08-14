@@ -13,7 +13,8 @@ module.exports = {
         'custom-customer-bg-color' : '#E1E9F4',
         'search-container-color' : '#EEF2F7',
         'custom-grey2' : '#F8F8F8',
-        'custom-color2' : '#CAC3D2'
+        'custom-color2' : '#CAC3D2',
+        'custom-color3' : '#E4ECF7',
 
       },
       width : {

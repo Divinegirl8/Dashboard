@@ -26,8 +26,35 @@ const Table: React.FC = () => {
                     </div>
                 </div>
 
-                <div>
-                    {/* Table content or additional elements can be added here */}
+                <div className={"overflow-x-auto mt-6"}>
+                    <table className={"w-custom-width2  ml-5"}>
+                        <thead>
+                        <tr className={"bg-custom-color3 h-16"}>
+                            <th className={"py-2 px-4 text-left  font-custom-font-weight2"}>Name</th>
+                            <th className={"py-2 px-4 text-left font-custom-font-weight2"}>Email</th>
+                            <th className={"py-2 px-4 text-left font-custom-font-weight2"}>Phone</th>
+                            <th className={"py-2 px-4 text-left font-custom-font-weight2"}>Company Name</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                        <tr>
+                            <td className={"py-2 px-4 font-custom-font-weight2 pt-9"}>John Doe</td>
+                            <td className={"py-2 px-4 font-custom-font-weight2"}>john.doe@example.com</td>
+                            <td className={"py-2 px-4 font-custom-font-weight2"}>(123) 456-7890</td>
+                            <td className={"py-2 px-4 font-custom-font-weight2"}>Acme Corp</td>
+                        </tr>
+
+                        <tr>
+                            <td className={"py-2 px-4 "}>John Doe</td>
+                            <td className={"py-2 px-4"}>john.doe@example.com</td>
+                            <td className={"py-2 px-4"}>(123) 456-7890</td>
+                            <td className={"py-2 px-4"}>Acme Corp</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
