@@ -23,7 +23,7 @@ module.exports = {
       },
       height :{
         'custom-table-container' : '905px',
-        'custom-table-container2' : '800px',
+        'custom-table-container2' : '820px',
 
       },
       fontFamily:{
