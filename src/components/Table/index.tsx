@@ -24,7 +24,7 @@ const Table: React.FC = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            toast.info('Loading users...', { autoClose: false });
+            toast.info('Loading Customers...', { autoClose: false });
             try {
                 await getUsers({
                     query: `
@@ -88,28 +88,26 @@ const Table: React.FC = () => {
                     </div>
                 </div>
 
-                <div className=" mt-6">
+                <div className="mt-6">
                     <table className="w-custom-width2 ml-5 relative">
                         <thead>
                         <tr className="bg-custom-color3 h-16">
-                            <th className="py-2 px-4 text-left font-custom-font-weight2">Name</th>
-                            <th className="py-2 px-4 text-left font-custom-font-weight2">Email</th>
-                            <th className="py-2 px-4 text-left font-custom-font-weight2">Phone</th>
-                            <th className="py-2 px-4 text-left font-custom-font-weight2">Company Name</th>
+                            <th className="py-2 px-4 text-left font-custom-font-weight2 w-1/4">Name</th>
+                            <th className="py-2 px-4 text-left font-custom-font-weight2 w-1/4">Email</th>
+                            <th className="py-2 px-4 text-left font-custom-font-weight2 w-1/4">Phone</th>
+                            <th className="py-2 px-4 text-left font-custom-font-weight2 w-1/4">Company Name</th>
                         </tr>
                         </thead>
 
                         <tbody>
-
                         {paginatedData?.map((user: User, index: number) => (
                             <tr key={index}>
-                                <td className="py-2 px-4 font-custom-font-weight2 pt-9">{user.name}</td>
-                                <td className="py-2 px-4 font-custom-font-weight2">{user.email}</td>
-                                <td className="py-2 px-4 font-custom-font-weight2">{user.phone}</td>
-                                <td className="py-2 px-4 font-custom-font-weight2">{user.company.name}</td>
+                                <td className="py-2 px-4 font-custom-font-weight2 pt-9 w-1/4">{user.name}</td>
+                                <td className="py-2 px-4 font-custom-font-weight2 pt-9 w-1/4">{user.email}</td>
+                                <td className="py-2 px-4 font-custom-font-weight2 pt-9 w-1/4">{user.phone}</td>
+                                <td className="py-2 px-4 font-custom-font-weight2 pt-9 w-1/4">{user.company.name}</td>
                             </tr>
                         ))}
-
                         </tbody>
                     </table>
                 </div>
@@ -119,7 +117,7 @@ const Table: React.FC = () => {
                         <div
                             key={index}
                             className={`mx-1 border-solid border-2 rounded-3xl h-11 w-11 pt-2 pl-4 cursor-pointer ${
-                                currentPage === index + 1 ? 'border-custom-color-4  bg-custom-color-5' : ''
+                                currentPage === index + 1 ? 'border-custom-color-4 bg-custom-color-5' : ''
                             }`}
                             onClick={() => handlePageChange(index + 1)}
                         >
@@ -128,7 +126,7 @@ const Table: React.FC = () => {
                     ))}
                 </div>
             </div>
-        </div>
+            </div>
     );
 };
 
