@@ -3,6 +3,7 @@ import styles from "./index.module.css"
 import photo from "../../asset/images/Ellipse 1.png"
 import {Icons} from "../../icon/icons";
 import Table from "../Table";
+import Modal from "../Modal";
 
 
 const Customer: React.FC = () => {
@@ -33,7 +34,7 @@ const Customer: React.FC = () => {
                     <div className={"bg-custom-customer-bg-color w-80  h-14 p-3 rounded-custom-border-radius"}>
                     <div className={"flex flex-row gap-4 cursor-pointer pl-3 text-custom-customer-text-color"}>
                         <img src={Icons.contact} alt={"customers"} width={30}/>
-                        <p>Customers</p>
+                        <p className={"mt-1"}>Customers</p>
                     </div>
                         </div>
 
@@ -53,7 +54,7 @@ const Customer: React.FC = () => {
 
                     <div className={"flex flex-row gap-4 cursor-pointer ml-5"}>
                         <img src={Icons.setting} alt={"settings"} width={30}/>
-                        <p>Settings</p>
+                        <p className={"mt-1"}>Settings</p>
                     </div>
                 </div>
             </div>
@@ -61,6 +62,7 @@ const Customer: React.FC = () => {
 
 
                     <Table/>
+
 
         </div>
     )

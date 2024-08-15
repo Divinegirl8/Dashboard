@@ -1,25 +1,16 @@
-
 import React, { useEffect, useState } from "react";
 import { useGetUsersMutation } from "../../app/slice";
 import { Icons } from "../../icon/icons";
 import { ToastContainer, toast } from "react-toastify";
-
+import Modal from "../Modal";
+import {User} from "./Interface";
 import "react-toastify/dist/ReactToastify.css";
-
-
-interface User {
-    name: string;
-    email: string;
-    phone: string;
-    company: {
-        name: string;
-    };
-}
 
 
 const Table: React.FC = () => {
     const [getUsers, { data }] = useGetUsersMutation();
     const [currentPage, setCurrentPage] = useState(1);
+    const [selectedUserIndex, setSelectedUserIndex] = useState<number | null>(null);
     const itemsPerPage = 5;
 
     useEffect(() => {
@@ -52,19 +43,25 @@ const Table: React.FC = () => {
         fetchData();
     }, [getUsers]);
 
-
     const startIndex = (currentPage - 1) * itemsPerPage;
     const paginatedData = data?.data?.users?.data?.slice(startIndex, startIndex + itemsPerPage);
 
     const totalPages = Math.ceil((data?.data?.users?.data?.length || 0) / itemsPerPage);
 
-
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
 
+    const handleRowClick = (index: number) => {
+        setSelectedUserIndex(index);
+    };
+
+    const handleCloseModal = () => {
+        setSelectedUserIndex(null);
+    };
+
     return (
-        <div className="w-full h-custom-table-container bg-white rounded-3xl mt-2 font-custom-fonts-family">
+        <div className={`w-full h-custom-table-container bg-white rounded-3xl mt-2 font-custom-fonts-family ${selectedUserIndex !== null ? 'opacity-50' : ''}`}>
             <ToastContainer />
             <div className="bg-custom-grey2 w-custom-width h-custom-table-container2 ml-10 mr-5 mt-10 rounded-custom-border-radius flex flex-col">
                 <div className="ml-5 mt-12 flex flex-row justify-between bg-search-container-color w-custom-width2 p-3 rounded-custom-border-radius">
@@ -76,7 +73,6 @@ const Table: React.FC = () => {
                             <input
                                 type="search"
                                 className="w-80 h-11 rounded-custom-border-radius outline-none text-custom-font-size2 pl-2"
-                                placeholder="Search..."
                             />
                         </div>
                     </div>
@@ -101,7 +97,11 @@ const Table: React.FC = () => {
 
                         <tbody>
                         {paginatedData?.map((user: User, index: number) => (
-                            <tr key={index}>
+                            <tr
+                                key={index}
+                                className="hover:bg-search-container-color cursor-pointer hover:py-4 hover:px-6 hover:h-16"
+                                onClick={() => handleRowClick(startIndex + index)}
+                            >
                                 <td className="py-2 px-4 font-custom-font-weight2 pt-9 w-1/4">{user.name}</td>
                                 <td className="py-2 px-4 font-custom-font-weight2 pt-9 w-1/4">{user.email}</td>
                                 <td className="py-2 px-4 font-custom-font-weight2 pt-9 w-1/4">{user.phone}</td>
@@ -126,7 +126,16 @@ const Table: React.FC = () => {
                     ))}
                 </div>
             </div>
-            </div>
+
+            {selectedUserIndex !== null && (
+                <>
+                    <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
+                    <div className="fixed top-0 right-0 w-96 h-full bg-white shadow-lg z-50">
+                        <Modal index={selectedUserIndex} onClose={handleCloseModal} />
+                    </div>
+                </>
+            )}
+        </div>
     );
 };
 
