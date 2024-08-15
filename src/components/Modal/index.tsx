@@ -59,7 +59,7 @@ const Modal: React.FC<ModalProps> = ({ index, onClose }) => {
     return (
         <div className="relative p-6 ml-3">
             <ToastContainer/>
-            <div className="absolute top-2 right-6 cursor-pointer text-lg font-bold" onClick={onClose}>
+            <div className="absolute top-2 right-6 cursor-pointer text-lg font-bold" onClick={onClose} data-testid="close-button">
                 <p className={"text-4xl"}> ×</p>
             </div>
             <h2 className="text-2xl font-semibold mt-40">Customer's Information</h2>
@@ -68,7 +68,7 @@ const Modal: React.FC<ModalProps> = ({ index, onClose }) => {
                 <img src={Icons.line} alt={"line"}/>
             </div>
 
-            <div className="mt-10">
+            <div className="mt-10"   data-testid="user-info">
                 <p><strong>Name:</strong> {user.name}</p>
                 <p><strong>Email:</strong> {user.email}</p>
                 <p><strong>Phone:</strong> {user.phone}</p>

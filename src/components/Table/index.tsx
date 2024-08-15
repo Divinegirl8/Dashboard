@@ -3,14 +3,14 @@ import { useGetUsersMutation } from "../../app/slice";
 import { Icons } from "../../icon/icons";
 import { ToastContainer, toast } from "react-toastify";
 import Modal from "../Modal";
-import {User} from "./Interface";
+import { User } from "./Interface";
 import "react-toastify/dist/ReactToastify.css";
-
 
 const Table: React.FC = () => {
     const [getUsers, { data }] = useGetUsersMutation();
     const [currentPage, setCurrentPage] = useState(1);
-    const [selectedUserIndex, setSelectedUserIndex] = useState<number | null>(null);
+    const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
+    const [searchQuery, setSearchQuery] = useState("");
     const itemsPerPage = 5;
 
     useEffect(() => {
@@ -22,6 +22,7 @@ const Table: React.FC = () => {
                         query {
                             users {
                                 data {
+                                    id
                                     name
                                     email
                                     phone
@@ -43,42 +44,62 @@ const Table: React.FC = () => {
         fetchData();
     }, [getUsers]);
 
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const paginatedData = data?.data?.users?.data?.slice(startIndex, startIndex + itemsPerPage);
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(event.target.value);
+        setCurrentPage(1);
+    };
 
-    const totalPages = Math.ceil((data?.data?.users?.data?.length || 0) / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+
+    const filteredData = data?.data?.users?.data?.filter((user: User) =>
+        user.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const paginatedData = filteredData?.slice(startIndex, startIndex + itemsPerPage);
+    const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
 
-    const handleRowClick = (index: number) => {
-        setSelectedUserIndex(index);
+    const handleRowClick = (userId: number) => {
+        setSelectedUserId(userId);
     };
 
     const handleCloseModal = () => {
-        setSelectedUserIndex(null);
+        setSelectedUserId(null);
     };
 
+
+    const originalData = data?.data?.users?.data || [];
+    const selectedUser = originalData.find((user: User) => user.id === selectedUserId) || null;
+
     return (
-        <div className={`w-full h-custom-table-container bg-white rounded-3xl mt-2 font-custom-fonts-family ${selectedUserIndex !== null ? 'opacity-50' : ''}`}>
+        <div className={`w-full h-custom-table-container bg-white rounded-3xl mt-2 font-custom-fonts-family ${selectedUserId !== null ? 'opacity-50' : ''}`}>
             <ToastContainer />
-            <div className="bg-custom-grey2 w-custom-width h-custom-table-container2 ml-10 mr-5 mt-10 rounded-custom-border-radius flex flex-col">
-                <div className="ml-5 mt-12 flex flex-row justify-between bg-search-container-color w-custom-width2 p-3 rounded-custom-border-radius">
+            <div
+                className="bg-custom-grey2 w-custom-width h-custom-table-container2 ml-10 mr-5 mt-10 rounded-custom-border-radius flex flex-col">
+                <div
+                    className="ml-5 mt-12 flex flex-row justify-between bg-search-container-color w-custom-width2 p-3 rounded-custom-border-radius">
                     <div className="flex flex-row bg-white rounded-custom-border-radius">
                         <div className="mt-3 ml-6">
-                            <img src={Icons.search} alt="search" width={20} />
+                            <img src={Icons.search} alt="search" width={20}/>
                         </div>
                         <div>
                             <input
                                 type="search"
                                 className="w-80 h-11 rounded-custom-border-radius outline-none text-custom-font-size2 pl-2"
+                                data-testid="search-input"
+                                value={searchQuery}
+                                onChange={handleSearchChange}
+                                placeholder="Search by name..."
                             />
                         </div>
                     </div>
                     <div>
-                        <div className="flex flex-row gap-3 w-28 border-custom-color2 border-solid border-2 p-2 rounded-custom-border-radius cursor-pointer">
-                            <img src={Icons.filter} alt="filter" className="w-5 h-4 mt-1 ml-2" />
+                        <div
+                            className="flex flex-row gap-3 w-28 border-custom-color2 border-solid border-2 p-2 rounded-custom-border-radius cursor-pointer">
+                            <img src={Icons.filter} alt="filter" className="w-5 h-4 mt-1 ml-2"/>
                             <p>Filter</p>
                         </div>
                     </div>
@@ -96,24 +117,30 @@ const Table: React.FC = () => {
                         </thead>
 
                         <tbody>
-                        {paginatedData?.map((user: User, index: number) => (
-                            <tr
-                                key={index}
-                                className="hover:bg-search-container-color cursor-pointer hover:py-4 hover:px-6 hover:h-16"
-                                onClick={() => handleRowClick(startIndex + index)}
-                            >
-                                <td className="py-2 px-4 font-custom-font-weight2 pt-9 w-1/4">{user.name}</td>
-                                <td className="py-2 px-4 font-custom-font-weight2 pt-9 w-1/4">{user.email}</td>
-                                <td className="py-2 px-4 font-custom-font-weight2 pt-9 w-1/4">{user.phone}</td>
-                                <td className="py-2 px-4 font-custom-font-weight2 pt-9 w-1/4">{user.company.name}</td>
+                        {paginatedData?.length ? (
+                            paginatedData.map((user: User) => (
+                                <tr
+                                    key={user.id}
+                                    className="hover:bg-search-container-color cursor-pointer hover:py-4 hover:px-6 hover:h-16"
+                                    onClick={() => handleRowClick(user.id)}
+                                >
+                                    <td className="py-2 px-4 font-custom-font-weight2 pt-9 w-1/4">{user.name}</td>
+                                    <td className="py-2 px-4 font-custom-font-weight2 pt-9 w-1/4">{user.email}</td>
+                                    <td className="py-2 px-4 font-custom-font-weight2 pt-9 w-1/4">{user.phone}</td>
+                                    <td className="py-2 px-4 font-custom-font-weight2 pt-9 w-1/4">{user.company.name}</td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan={4} className="py-4 text-center font-custom-font-weight2">No user found</td>
                             </tr>
-                        ))}
+                        )}
                         </tbody>
                     </table>
                 </div>
 
-                <div className="relative mt-48 mr-20 flex justify-end">
-                    {Array.from({ length: totalPages }, (_, index) => (
+                <div className="fixed bottom-40 right-32 flex justify-end">
+                    {Array.from({length: totalPages}, (_, index) => (
                         <div
                             key={index}
                             className={`mx-1 border-solid border-2 rounded-3xl h-11 w-11 pt-2 pl-4 cursor-pointer ${
@@ -125,13 +152,15 @@ const Table: React.FC = () => {
                         </div>
                     ))}
                 </div>
+
+
             </div>
 
-            {selectedUserIndex !== null && (
+            {selectedUserId !== null && selectedUser && (
                 <>
                     <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
                     <div className="fixed top-0 right-0 w-96 h-full bg-white shadow-lg z-50">
-                        <Modal index={selectedUserIndex} onClose={handleCloseModal} />
+                        <Modal index={selectedUserId - 1} onClose={handleCloseModal}/>
                     </div>
                 </>
             )}
