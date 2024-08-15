@@ -139,7 +139,7 @@ const Table: React.FC = () => {
                     </table>
                 </div>
 
-                <div className="fixed bottom-40 right-32 flex justify-end">
+                <div className="flex justify-end mt-36">
                     {Array.from({length: totalPages}, (_, index) => (
                         <div
                             key={index}
@@ -169,3 +169,4 @@ const Table: React.FC = () => {
 };
 
 export default Table;
+
