@@ -49,7 +49,7 @@ module.exports = {
       },
       border:{
         'custom-size' : "1px",
-      }
+      },
 
     },
   },
